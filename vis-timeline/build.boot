@@ -4,7 +4,7 @@
 
 (require '[cljsjs.boot-cljsjs.packaging :refer :all])
 
-(def +lib-version+ "6.3.2")
+(def +lib-version+ "7.0.0")
 (def +version+ (str +lib-version+ "-0"))
 
 (task-options!
@@ -19,13 +19,16 @@
 (deftask package []
   (comp
    (download  
-    :url (format "https://unpkg.com/vis-timeline@%s/dist/vis-timeline-graph2d.min.js" +lib-version+)
+    :url (format "https://unpkg.com/vis-timeline@%s/standalone/umd/vis-timeline-graph2d.js" +lib-version+)
     :target "cljsjs/vis-timeline/development/vis-timeline.inc.js")
-   (download
-    :url (format "https://unpkg.com/vis-timeline@%s/dist/vis-timeline-graph2d.min.js" +lib-version+)
+   (download  
+    :url (format "https://unpkg.com/vis-timeline@%s/standalone/umd/vis-timeline-graph2d.min.js" +lib-version+)
     :target "cljsjs/vis-timeline/production/vis-timeline.min.inc.js")
    (download 
-    :url (format "https://unpkg.com/vis-timeline@%s/dist/vis-timeline-graph2d.min.css" +lib-version+)
+    :url (format "https://unpkg.com/vis-timeline@%s/styles/vis-timeline-graph2d.css" +lib-version+)
+    :target "cljsjs/vis-timeline/development/vis-timeline.inc.css")
+   (download 
+    :url (format "https://unpkg.com/vis-timeline@%s/styles/vis-timeline-graph2d.min.css" +lib-version+)
     :target "cljsjs/vis-timeline/production/vis-timeline.min.inc.css")
    (sift      :include  #{#"^cljsjs"})
    (deps-cljs :name     "cljsjs.vis-timeline")
